@@ -1,0 +1,127 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+    public:
+  void remove1(map<int,int>&m,int a){
+      if(m[a]==1){
+          m.erase(a);
+      }else{
+          m[a]--;
+      }
+  }
+  int one(vector<int>s){
+      map<int,int>m;
+      int ans=0,i=-1,j=-1,n=s.size();
+      while(true){
+          bool f1=false,f2=false;
+          
+          
+         
+          while(i<n-1){
+              f1=true;
+             
+               
+              m[s[i++]]++;
+              if(m.size()==2){
+                  remove1(m,s[i--]);
+                  
+                  break;
+              }
+          }
+          while(j<i){
+              f2=true;
+               
+              if(m.size()==1){
+              ans+=i-j;
+             
+              }
+             
+              remove1(m,s[j++]);
+              if(m.size()==0)
+              break;
+          }
+          
+          if(f1==false&&f2==false){
+              break;
+          }
+          
+      }
+      return ans;
+      
+  }
+    int subarrayCount(vector<int>& s1,int n, int k) {
+        int ans=0;
+       if(k==1){
+           return one(s1);
+       }
+       map<int,int>b;
+       map<int,int>s;
+       int ib=-1,is=-1,j=-1;
+       while(true){
+           bool f1=false,f2=false,f3=false;
+           while(ib<n-1){
+                
+               f1=true;
+               b[s1[ib++]]++;
+             
+               if(b.size()==k+1){
+                    remove1(b,s1[ib--]);
+                  
+                   break;
+               }
+           }
+           while(is<ib){
+              
+               f2=true;
+               
+               s[s1[is++]]++;
+               if(s.size()==k){
+                   remove1(s,s1[is--]);
+                 
+                   break;
+               }
+           }
+           while(j<is){
+               f3=true;
+               if(s.size()==k-1&&b.size()==k){
+                   ans+=ib-is;
+               }
+              
+               remove1(s,s1[j++]);
+               remove1(b,s1[j]);
+               if(s.size()<k-1||b.size()<k)
+               {
+                   break;
+               }
+           }
+           
+           if(f1==false&&f2==false&&f3==false){
+               break;
+           }
+       }
+       return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N, k;
+        cin >> N >> k;
+
+        vector<int> arr(N);
+        for (int i = 0; i < N; i++) cin >> arr[i];
+
+        Solution obj;
+        cout << obj.subarrayCount(arr, N, k) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
