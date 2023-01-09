@@ -4,6 +4,7 @@ using namespace std;
 
 
 // } Driver Code Ends
+///1st approach
 class Solution {
     public:
   void remove1(map<int,int>&m,int a){
@@ -106,6 +107,25 @@ class Solution {
        return ans;
     }
 };
+
+
+
+
+///2nd approach optimal
+  int solve(vector<int>& A ,int N,int K){
+        int j=K;
+        int start = 0, res = 0;
+        unordered_map<int, int> count;
+        for (int end = 0; end < N; ++end) {
+            if (!count[A[end]]++) K--;
+            while (K < 0) {
+                if (!--count[A[start]]) K++;
+                start++;
+            }
+            res += end - start + 1;
+        }
+        return res;
+    }
 
 //{ Driver Code Starts.
 
