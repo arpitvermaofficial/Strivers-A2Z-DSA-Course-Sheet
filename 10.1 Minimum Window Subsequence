@@ -1,0 +1,70 @@
+//{ Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    string minWindow(string s, string p) {
+        // Write your Code here
+        int j=0,min=s.length()+1;
+        string k="";
+        for(int i=0;i<s.length();i++){
+            if(s[i]==p[j]){
+                j++;
+            }
+            if(j>=p.length()){
+              
+            int end=i+1;
+            j--;
+            while(j>=0){
+                if(s[i]==p[j]){
+                    j--;
+                }
+                i--;
+            }
+            
+            i++;j++;
+           
+            if(end-i<min){
+               
+            min=end-i;
+            
+            k=s.substr(i,end-i);
+              
+            }
+            }
+        }
+        return k;
+    }
+};
+
+
+//{ Driver Code Starts.
+
+int main() {
+    int t = 1;
+    cin >> t;
+
+    // freopen ("output_gfg.txt", "w", stdout);
+
+    while (t--) {
+        // Input
+        string str1, str2;
+        cin >> str1 >> str2;
+
+        Solution obj;
+        cout << obj.minWindow(str1, str2) << endl;
+
+        // cout << "~\n";
+    }
+    // fclose(stdout);
+
+    return 0;
+}
+
+// } Driver Code Ends
