@@ -1,0 +1,92 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Twitter {
+  public:
+    // Initialize your data structure here
+    map<int,set<int>>friends;
+        int curr;
+        priority_queue<vector<int>>timeline;
+    Twitter() {
+        friends.clear();
+       curr=0;
+        timeline=priority_queue<vector<int>>();
+    }
+
+    // Compose a new tweet
+    void postTweet(int userId, int tweetId) {
+       timeline.push({curr++,tweetId,userId});
+    }
+
+    // Retrieve the 10 most recent tweet ids as mentioned in question
+    vector<int> getNewsFeed(int userId) {
+        vector<int>ans;
+        int n=0;
+        priority_queue<vector<int>>usertimeline=timeline;
+        while(!usertimeline.empty()&&n<10){
+            auto toptweet=usertimeline.top();
+            usertimeline.pop();
+            if(toptweet[2]==userId||friends[userId].count(toptweet[2])){
+                ans.push_back(toptweet[1]);
+                n++;
+            }
+        }
+        return ans;
+        
+    }
+
+    void follow(int followerId, int followeeId) {
+        friends[followerId].insert(followeeId);
+    }
+
+    void unfollow(int followerId, int followeeId) {
+         friends[followerId].erase(followeeId);
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    Twitter obj;
+
+    int total_queries;
+    cin >> total_queries;
+    while (total_queries--) {
+        int query;
+        cin >> query;
+
+        // if query = 1, postTweet()
+        // if query = 2, getNewsFeed()
+        // if query = 3, follow()
+        // if query = 4, unfollow()
+
+        if (query == 1) {
+            int userId, tweetId;
+            cin >> userId >> tweetId;
+            obj.postTweet(userId, tweetId);
+        } else if (query == 2) {
+            int userId;
+            cin >> userId;
+            vector<int> vec = obj.getNewsFeed(userId);
+            for (int a : vec) cout << a << " ";
+            cout << endl;
+        } else if (query == 3) {
+            int follower, followee;
+            cin >> follower >> followee;
+            obj.follow(follower, followee);
+        } else {
+            int follower, followee;
+            cin >> follower >> followee;
+            obj.unfollow(follower, followee);
+        }
+    }
+    return 0;
+}
+// } Driver Code Ends
