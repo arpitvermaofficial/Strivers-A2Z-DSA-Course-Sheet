@@ -49,6 +49,28 @@ class Solution {
     return v;
     }
 };
+////Iterative approach///
+vector<int> inOrder(Node* root) {
+        // Your code here
+          vector<int>v;
+          stack<Node*>s;
+          Node*curr=root;
+          while(true){
+              if(curr!=NULL){
+                  s.push(curr);
+                  curr=curr->left;
+              }else{
+                  if(s.empty())
+                  break;
+                  curr=s.top();
+                  v.push_back(curr->data);
+                  s.pop();
+                  curr=curr->right;
+              }
+          }
+    return v;
+    }
+    ////////////////
 
 //{ Driver Code Starts.
 
