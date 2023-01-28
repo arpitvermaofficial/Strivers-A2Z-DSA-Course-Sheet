@@ -1,0 +1,94 @@
+//{ Driver Code Starts
+//
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+	int data;
+	struct Node *left;
+	struct Node *right;
+	
+	Node(int x){
+	    data = x;
+	    left = NULL;
+	    right = NULL;
+	}
+};
+
+
+void printPostOrder(Node *root)
+{
+	if(root==NULL)
+		return;
+	printPostOrder(root->left);
+	printPostOrder(root->right);
+	cout<<root->data<<" ";
+}
+
+// } Driver Code Ends
+
+/*Complete the code here.
+Node is as follows:
+struct Node
+{
+  int data;
+  Node* left;
+  Node* right;
+};
+*/
+class Solution{
+    public:
+   void help(int in[],int pre[],int insi,int inei,int presi,int preei,int n,Node* &tree){
+        if(n<=0){
+            tree=NULL;
+            return;
+        }
+        tree = new Node(pre[presi]);
+        int si=0;
+        for(int i=insi;i<=inei;i++){
+            if(in[i]==pre[presi]){
+                si=i;
+                break;
+            }
+        }
+        int ll = si-insi;
+        int rl = inei-si;
+        help(in,pre,insi,insi+ll-1,presi+1,presi+ll,ll,tree->left);//left call
+        help(in,pre,insi+ll+1,inei,presi+ll+1,preei,rl,tree->right);//right call
+
+    }
+
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        Node *mynode;
+        help(in,pre,0,n-1,0,n-1,n,mynode);
+        return mynode;
+    }
+
+};
+
+//{ Driver Code Starts.
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n;
+		cin>>n;
+		
+		int inorder[n], preorder[n];
+		for(int i=0; i<n; i++)
+			cin>> inorder[i];
+		for(int i=0; i<n; i++)
+			cin>> preorder[i];
+		Solution obj;
+		Node *root = obj.buildTree(inorder, preorder, n);
+		printPostOrder(root);
+		cout<< endl;
+	}
+}
+
+// } Driver Code Ends
