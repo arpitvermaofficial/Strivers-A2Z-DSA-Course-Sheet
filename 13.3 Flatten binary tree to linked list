@@ -99,6 +99,7 @@ void inorder(struct Node* root)
 class Solution
 {
     public:
+    ///optimal approach time O(n) space O(1)/////
     void flatten(Node *root)
     {Node* cur = root;
 		while (cur)
@@ -117,6 +118,19 @@ class Solution
 			cur = cur->right;
 		}
     }
+    ///another approach time O(n) space O(n)/////
+    Node * prev = NULL;
+    void flatten(Node * root) {
+      if (root == NULL) return;
+
+      flatten(root -> right);
+      flatten(root -> left);
+
+      root -> right = prev;
+      root -> left = NULL;
+      prev = root;
+    }
+    //////
 };
 
 //{ Driver Code Starts.
