@@ -131,6 +131,29 @@ class Solution
       prev = root;
     }
     //////
+     ///another approach using stack time O(n) space O(n)/////
+      Node * prev = NULL;
+  public:
+   void flatten(Node * root) {
+  if (root == NULL) return;
+  stack < Node * > st;
+  st.push(root);
+  while (!st.empty()) {
+    Node * cur = st.top();
+    st.pop();
+
+    if (cur -> right != NULL) {
+      st.push(cur -> right);
+    }
+    if (cur -> left != NULL) {
+      st.push(cur -> left);
+    }
+    if (!st.empty()) {
+      cur -> right = st.top();
+    }
+    cur -> left = NULL;
+  }
+  //////
 };
 
 //{ Driver Code Starts.
