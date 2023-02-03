@@ -23,7 +23,9 @@ public:
               if(vec.size()>level){
               level++;
               for(auto it:used)
-              s.erase(it);}
+              s.erase(it);
+	      used.clear();
+	      }
                string word=vec.back();
                if(word==endWord){
                    if(ans.size()==0){
