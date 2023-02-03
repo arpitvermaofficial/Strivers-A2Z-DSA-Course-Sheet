@@ -1,0 +1,85 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int numberOfEnclaves(vector<vector<int>> &mat) {
+        // Code here
+         int n = mat.size(); 
+	    int m = mat[0].size(); 
+        
+        queue<pair<int,int>>q;
+        vector<vector<int>>ans(n,vector<int>(m,0));
+         vector<vector<int>>vis(n,vector<int>(m,0));
+      
+        int row[]={0,+1,0,-1};
+        int col[]={-1,0,+1,0};
+      
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0)
+                    vis[i][j]=1;
+                    if((i==0||i==n-1||j==0||j==m-1)&&mat[i][j]==1){
+                        q.push({i,j});
+                    }
+                    
+
+            }}
+        while(!q.empty()){
+            int r=q.front().first;
+            int c=q.front().second;
+           ans[r][c]=1;
+       
+            q.pop();
+           
+            for(int i=0;i<4;i++){
+                int n1=r+row[i];
+                int n2=c+col[i];
+                if(n1>=0&&n1<n&&n2>=0&&n2<m&&vis[n1][n2]==0&&mat[n1][n2]==1){
+                    q.push({n1,n2});
+                    vis[n1][n2]=1;
+                }
+            }
+            
+        }
+        int count=0;
+            for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==1&&ans[i][j]==0){
+                    count++;
+                   
+                }
+
+            }}
+        return count;
+             
+    }
+};
+
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> grid(n, vector<int>(m));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> grid[i][j];
+            }
+        }
+        Solution obj;
+        cout << obj.numberOfEnclaves(grid) << endl;
+    }
+}
+// } Driver Code Ends
