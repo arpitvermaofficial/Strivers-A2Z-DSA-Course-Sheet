@@ -1,0 +1,78 @@
+//{ Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+  int n,m;
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        // code her
+         n=grid.size();
+         m=grid[0].size();
+        set<vector<pair<int,int>>>s;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]==0&&grid[i][j]==1){
+                    bfs(i,j,grid,s,vis);
+                }
+            }
+        }
+        return s.size();
+    }
+    void bfs(int sr,int sc,vector<vector<int>>&grid,set<vector<pair<int,int>>>&s,vector<vector<int>>&vis){
+        vector<pair<int,int>>v;
+        queue<pair<int,int>>q;
+        q.push({0,0});
+        v.push_back({0,0});
+         int row[]={0,+1,0,-1};
+        int col[]={-1,0,+1,0};
+        while(!q.empty()){
+            int r=q.front().first+sr;
+            int c=q.front().second+sc;
+            q.pop();
+            
+             for(int i=0;i<4;i++){
+                int n1=r+row[i];
+                int n2=c+col[i];
+                if(n1>=0&&n1<n&&n2>=0&&n2<m&&grid[n1][n2]==1&&vis[n1][n2]==0){
+                    q.push({n1-sr,n2-sc});
+                    v.push_back({n1-sr,n2-sc});
+                    vis[n1][n2]=1;
+                }
+            }
+            
+            
+        }
+        s.insert(v);
+        
+    }
+};
+
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> grid(n, vector<int>(m));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> grid[i][j];
+            }
+        }
+        Solution obj;
+        cout << obj.countDistinctIslands(grid) << endl;
+    }
+}
+// } Driver Code Ends
