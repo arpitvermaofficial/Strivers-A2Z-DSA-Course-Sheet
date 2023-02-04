@@ -1,0 +1,69 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution {
+  public:
+    int numProvinces(vector<vector<int>> grid, int V) {
+        // code here
+        
+        vector<int>vis(V+1,0);
+        int total=0;
+        for(int i=1;i<V+1;i++){
+            if(!vis[i]){
+                total++;
+                bfs(i,grid,V,vis);
+            }
+        }
+        return total;
+    }
+    void bfs(int src,vector<vector<int>>grid,int V,vector<int>&vis){
+        vis[src]=1;
+        queue<int>q;
+        q.push(src);
+        while(!q.empty()){
+            int i=q.front();
+            q.pop();
+            for(int j=0;j<V;j++){
+                if(grid[i-1][j]==1&&(i-1)!=j&&vis[j+1]==0){
+                    vis[j+1]=1;
+                    q.push(j+1);
+                }
+            }
+        }
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int V,x;
+        cin>>V;
+        
+        vector<vector<int>> adj;
+        
+        for(int i=0; i<V; i++)
+        {
+            vector<int> temp;
+            for(int j=0; j<V; j++)
+            {
+                cin>>x;
+                temp.push_back(x);
+            }
+            adj.push_back(temp);
+        }
+        
+
+        Solution ob;
+        cout << ob.numProvinces(adj,V) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
