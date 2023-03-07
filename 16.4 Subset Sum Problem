@@ -13,6 +13,26 @@ public:
         // code here 
         vector<vector<int>>dp(arr.size(),vector<int>(sum+1,-1));
         return fun(arr,sum,dp,arr.size()-1);
+        
+        
+    /*via tabulization
+      // code here 
+        int n=arr.size();
+        vector<vector<bool>>dp(n,vector<bool>(sum+1,0));
+        for(int i=0;i<n;i++)
+        dp[i][0]=true;
+        dp[0][arr[0]]=true;
+      
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=sum;j++){
+                bool notpick=dp[i-1][j];
+                bool pick=false;
+                if(j>=arr[i])
+                pick=dp[i-1][j-arr[i]];
+                dp[i][j]=pick|notpick;
+            }
+        }
+        return dp[n-1][sum];*/
     }
     ///via memoization
    bool fun(vector<int>arr,int target ,vector<vector<int>>&dp,int index ){
