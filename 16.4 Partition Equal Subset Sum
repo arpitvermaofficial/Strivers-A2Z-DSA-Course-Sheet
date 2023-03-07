@@ -1,0 +1,67 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+public:
+    int equalPartition(int N, int arr[])
+    {
+        int sum=0;
+        for(int i=0;i<N;i++)
+        sum+=arr[i];
+        if(sum%2!=0)
+        return false;
+        else{
+             sum=sum/2;
+             return isSubsetSum(arr,sum,N);
+        }
+    }
+   bool isSubsetSum(int arr[], int sum,int n){
+        // code here 
+       
+     vector<bool>prev(sum+1,0),curr(sum+1,0);
+     prev[0]=true,curr[0]=true;
+        
+        if(arr[0]<=sum)prev[arr[0]]=true;
+      
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=sum;j++){
+                bool notpick=prev[j];
+                bool pick=false;
+                if(j>=arr[i])
+                pick=prev[j-arr[i]];
+               curr[j]=pick|notpick;
+            }
+            prev=curr;
+        }
+        return prev[sum];
+        
+    }
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        int arr[N];
+        for(int i = 0;i < N;i++)
+            cin>>arr[i];
+        
+        Solution ob;
+        if(ob.equalPartition(N, arr))
+            cout<<"YES\n";
+        else
+            cout<<"NO\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
