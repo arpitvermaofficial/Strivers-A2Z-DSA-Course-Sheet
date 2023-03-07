@@ -1,0 +1,55 @@
+//{ Driver Code Starts
+//Initial template for C++
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution{   
+public:
+    bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        vector<vector<int>>dp(arr.size(),vector<int>(sum+1,-1));
+        return fun(arr,sum,dp,arr.size()-1);
+    }
+    ///via memoization
+   bool fun(vector<int>arr,int target ,vector<vector<int>>&dp,int index ){
+       if(target==0)
+       return dp[index][target]=true;
+       if(index==0)
+       return dp[index][target]=(target==arr[0]);
+       if(dp[index][target]!=-1)
+       return dp[index][target];
+      
+       int notpick=fun(arr,target,dp,index-1);
+        int pick=0;
+        if(target>=arr[index])
+        pick=fun(arr,target-arr[index],dp,index-1);
+       return dp[index][target]=pick|notpick;
+   }
+};
+
+//{ Driver Code Starts.
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int N, sum;
+        cin >> N;
+        vector<int> arr(N);
+        for(int i = 0; i < N; i++){
+            cin >> arr[i];
+        }
+        cin >> sum;
+        
+        Solution ob;
+        cout << ob.isSubsetSum(arr, sum) << endl;
+    }
+    return 0; 
+} 
+
+// } Driver Code Ends
