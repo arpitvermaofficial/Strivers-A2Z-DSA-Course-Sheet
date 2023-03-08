@@ -1,0 +1,95 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+  public:
+    int cutRod(int price[], int n) {
+        
+         vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return fun(n-1,n,price,dp);
+        
+        
+                //tabulization
+                //   vector<vector<int>>dp(n,vector<int>(n+1,0));
+                // for(int length=0;length<=n;length++)
+                // dp[0][length]=price[0]*length;
+                
+                // for(int index=1;index<n;index++){
+                //     for(int length=0;length<=n;length++){
+                //          int notpick=dp[index-1][length];
+                //             int pick=INT_MIN;
+                //             if(index+1<=length){
+                //                 pick=price[index]+dp[index][length-(index+1)];
+                //             }
+                //             dp[index][length]=max(pick,notpick);
+                //     }
+                // }
+                
+                
+                // return dp[n-1][n];
+        
+        // //sapce optimization in 2 array
+        //  vector<int>prev(n+1,0),curr(n+1,0);
+        
+        // for(int length=0;length<=n;length++)
+        // prev[length]=price[0]*length;
+        
+        // for(int index=1;index<n;index++){
+        //     for(int length=0;length<=n;length++){
+        //          int notpick=prev[length];
+        //             int pick=INT_MIN;
+        //             if(index+1<=length){
+        //                 pick=price[index]+curr[length-(index+1)];
+        //             }
+        //             curr[length]=max(pick,notpick);
+        //     }
+        //     prev=curr;
+        // }
+        
+        
+        // return prev[n];
+        
+    }
+    int fun(int index,int target,int price[], vector<vector<int>>&dp){
+        if(index==0){
+           
+            return price[index]*target;
+         
+        }
+        if(dp[index][target]!=-1)
+        return dp[index][target];
+        int notpick=fun(index-1,target,price,dp);
+        int pick=INT_MIN;
+        if(index+1<=target){
+            pick=price[index]+fun(index,target-(index+1),price,dp);
+        }
+        return dp[index][target]=max(pick,notpick);
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int a[n];
+        for (int i = 0; i < n; i++) 
+            cin >> a[i];
+            
+        Solution ob;
+
+        cout << ob.cutRod(a, n) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
