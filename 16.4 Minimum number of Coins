@@ -1,0 +1,70 @@
+class Solution{
+
+public:
+
+    int fun(vector<int>&vec , int N , int n , vector<int>&ans, vector<vector<int>>&dp){
+
+        if(N==0)
+
+            return 0;
+
+        if(n==0){
+
+            ans.push_back(vec[0]);
+
+            return N/vec[0];
+
+        }
+
+        if(dp[n][N] != -1)
+
+            return dp[n][N];
+
+            
+
+        int pick = 1e9;
+
+        if(N>=vec[n]){
+
+            ans.push_back(vec[n]);
+
+            pick = 1 + fun(vec,N-vec[n],n,ans,dp);
+
+        }
+
+        int notpick = fun(vec,N,n-1,ans,dp);
+
+        
+
+        return dp[n][N] = min(pick,notpick);
+
+    }
+
+    vector<int> minPartition(int N)
+
+    {
+
+        // code here
+
+        vector<int>vec = { 1, 2, 5, 10, 20, 50, 100, 200, 500, 2000 } ;
+
+        int n = vec.size();
+
+        vector<vector<int>>dp(n,vector<int>(N+1,-1));
+
+        vector<int>ans;
+
+       int val = fun(vec,N,n-1,ans,dp);
+
+        vector<int>ans1;
+
+        for(int i =0 ; i<val ; i++){
+
+            ans1.push_back(ans[i]);
+
+        }
+
+        return ans1;
+
+    }
+    }
