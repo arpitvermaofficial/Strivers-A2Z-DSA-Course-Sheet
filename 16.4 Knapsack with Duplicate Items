@@ -24,6 +24,56 @@ class Solution
            }
        }
        return dp[n-1][weight];
+       
+         //     space optimization in @ array
+           //     vector<int>prev(W+1,0),curr(W+1,0);
+    
+    // for(int i=wt[0]; i<=W; i++){
+    //     prev[i] = ((int) i/wt[0]) * val[0];
+    // }
+    
+    // for(int ind =1; ind<n; ind++){
+    //     for(int cap=0; cap<=W; cap++){
+            
+    //         int notTaken = 0 + prev[cap];
+            
+    //         int taken = INT_MIN;
+    //         if(wt[ind] <= cap)
+    //             taken = val[ind] + curr[cap - wt[ind]];
+                
+    //         curr[cap] = max(notTaken, taken);
+    //     }
+    //     prev=curr;
+    // }
+    
+    // return dp[n-1][W];
+       
+       
+       
+       
+       
+       //     space optimization in 1D array
+    //     vector<int>prev(W+1,0);
+    
+    // for(int i=wt[0]; i<=W; i++){
+    //     prev[i] = ((int) i/wt[0]) * val[0];
+    // }
+    
+    // for(int ind =1; ind<n; ind++){
+    //     for(int cap=0; cap<=W; cap++){
+            
+    //         int notTaken = 0 + prev[cap];
+            
+    //         int taken = INT_MIN;
+    //         if(wt[ind] <= cap)
+    //             taken = val[ind] + prev[cap - wt[ind]];
+                
+    //         prev[cap] = max(notTaken, taken);
+    //     }
+        
+    // }
+    
+    // return prev[W];
     }
     int fun(int index,int weight,int wt[],int val[], vector<vector<int>>&dp){
         if(index==0){
