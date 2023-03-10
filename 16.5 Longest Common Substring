@@ -17,7 +17,8 @@ class Solution{
 		            }
 		        }
 		    }
-		    int maxi=0;
+		  //  int maxi=0;
+		  //  int x=-1,y=-1;
 		    for(int i=1;i<n+1;i++){
 		        for(int j=1;j<m+1;j++){
 		            if(s[i-1] == t[j-1]){
@@ -26,9 +27,25 @@ class Solution{
 		            else{
 		                dp[i][j] = 0;
 		            }
+		            if(maxi<dp[i][j]){
 		            maxi=max(maxi,dp[i][j]);
+		              //  x=i;
+		              //  y=j;
+		            }
 		        }
 		    }
+		  //  x--;
+		  //  y--;
+		 
+		  //  int length=maxi;
+		  //  string s1="";
+		   
+		  //  while(length>0){
+		  //      s1=s[x]+s1;
+		  //      x--;
+		  //      length--;
+		  //  }
+		  //  cout<<s1<<endl;
 		    return maxi;
 
     }
